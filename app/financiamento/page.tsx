@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Simulator from '@/components/Simulator';
+import { CONFIG } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: 'Financiamento Imobiliário',
@@ -7,13 +8,7 @@ export const metadata: Metadata = {
     'Compare as taxas de financiamento imobiliário dos principais bancos e simule sua parcela. Análise de crédito gratuita.',
 };
 
-const BANCOS = [
-  { nome: 'Caixa Econômica Federal', taxa: '11,19% a.a + TR', sigla: 'CEF' },
-  { nome: 'Itaú Unibanco', taxa: '12,47% a.a + TR', sigla: 'ITÁ' },
-  { nome: 'Banco Santander', taxa: '12,99% a.a + TR', sigla: 'SAN' },
-  { nome: 'Banco Bradesco', taxa: '13,13% a.a + TR', sigla: 'BRA' },
-  { nome: 'Banco do Brasil', taxa: '13,76% a.a + TR', sigla: 'BB' },
-];
+const BANCOS = CONFIG.bancos;
 
 const PASSOS = [
   'Análise gratuita do seu perfil de crédito',

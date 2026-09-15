@@ -1,15 +1,21 @@
 /**
- * Constantes do site — equivalente às `define()` do functions.php
+ * Constantes do site.
+ *
+ * Os valores agora vêm de `data/config.json`, editável pelo painel em /admin.
+ * A interface SITE foi mantida idêntica para não quebrar os componentes.
  */
+import { CONFIG } from './config';
+
 export const SITE = {
   name: 'Thiago Bostock',
   fullName: 'Thiago Bostock Consultoria Imobiliária',
-  phone: '(77) 99155-5610',
-  whatsapp: '5577991555610',
-  creci: '36.772',
-  email: 'contato@thiagobostock.com.br',
-  location: 'Bom Jesus da Lapa, Bahia — Brasil',
-  url: 'https://thiagobostock.com.br',
+  phone: CONFIG.contato.telefone,
+  whatsapp: CONFIG.contato.whatsapp,
+  creci: CONFIG.contato.creci,
+  email: CONFIG.contato.email,
+  location: CONFIG.contato.localizacao,
+  horario: CONFIG.contato.horario,
+  url: 'https://bostockimoveis.com.br',
 } as const;
 
 /** Equivalente a tb_whatsapp_link() */

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SITE, whatsappLink } from '@/lib/site';
 import { getImoveisDestaque } from '@/lib/imoveis';
+import { CONFIG } from '@/lib/config';
 import PropertyCard from '@/components/PropertyCard';
 import SearchForm from '@/components/SearchForm';
 import Simulator from '@/components/Simulator';
@@ -42,37 +43,9 @@ const SERVICES = [
   },
 ];
 
-const BANCOS = [
-  { nome: 'Caixa Econômica', taxa: '11,19% a.a + TR', sigla: 'CEF' },
-  { nome: 'Itaú Unibanco', taxa: '12,47% a.a + TR', sigla: 'ITÁ' },
-  { nome: 'Santander', taxa: '12,99% a.a + TR', sigla: 'SAN' },
-  { nome: 'Bradesco', taxa: '13,13% a.a + TR', sigla: 'BRA' },
-  { nome: 'Banco do Brasil', taxa: '13,76% a.a + TR', sigla: 'BB' },
-];
+const BANCOS = CONFIG.bancos;
 
-const TESTIMONIALS = [
-  {
-    inicial: 'M',
-    texto:
-      'Melhor corretor que já trabalhei! Super profissional e honesto. Me ajudou a encontrar o imóvel perfeito dentro do meu orçamento sem stress.',
-    nome: 'Marcos Oliveira',
-    cidade: 'Barreiras, BA',
-  },
-  {
-    inicial: 'A',
-    texto:
-      'O Thiago cuidou de tudo, da avaliação ao financiamento. Conseguiu uma taxa incrível no banco que eu nem sabia que existia. Recomendo muito!',
-    nome: 'Ana Carolina Lima',
-    cidade: 'Luís Eduardo, BA',
-  },
-  {
-    inicial: 'R',
-    texto:
-      'Atendimento exclusivo de verdade. Ele me atendeu até nos fins de semana. Vendeu minha casa em tempo recorde pelo valor pedido.',
-    nome: 'Roberto Santos',
-    cidade: 'Barreiras, BA',
-  },
-];
+const TESTIMONIALS = CONFIG.depoimentos;
 
 export default function HomePage() {
   const destaques = getImoveisDestaque(6);
@@ -83,7 +56,7 @@ export default function HomePage() {
       <section className="hero-section" id="hero" aria-label="Seção principal">
         <div className="hero-bg">
           <Image
-            src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1920&q=80"
+            src={CONFIG.hero.imagemFundo}
             alt="Imóvel de luxo"
             fill
             priority
@@ -97,16 +70,13 @@ export default function HomePage() {
           <div className="container">
             <div className="hero-inner">
               <div className="hero-text">
-                <span className="hero-eyebrow">Construir com Sabedoria</span>
+                <span className="hero-eyebrow">{CONFIG.hero.eyebrow}</span>
                 <h1 className="hero-title">
-                  É Investir com
+                  {CONFIG.hero.titulo}
                   <br />
-                  <span className="accent">Sucesso!</span>
+                  <span className="accent">{CONFIG.hero.tituloDestaque}</span>
                 </h1>
-                <p className="hero-subtitle">
-                  Consultoria imobiliária exclusiva em Barreiras e região. Encontre o imóvel ideal com o corretor
-                  mais preparado do mercado.
-                </p>
+                <p className="hero-subtitle">{CONFIG.hero.subtitulo}</p>
 
                 <div className="hero-buttons">
                   <a
@@ -123,25 +93,19 @@ export default function HomePage() {
                 </div>
 
                 <div className="hero-stats">
-                  <div className="hero-stat">
-                    <div className="hero-stat-num">+500</div>
-                    <div className="hero-stat-label">Imóveis Vendidos</div>
-                  </div>
-                  <div className="hero-stat">
-                    <div className="hero-stat-num">+10</div>
-                    <div className="hero-stat-label">Anos de Mercado</div>
-                  </div>
-                  <div className="hero-stat">
-                    <div className="hero-stat-num">100%</div>
-                    <div className="hero-stat-label">Satisfação</div>
-                  </div>
+                  {CONFIG.hero.stats.map((s) => (
+                    <div className="hero-stat" key={s.label}>
+                      <div className="hero-stat-num">{s.numero}</div>
+                      <div className="hero-stat-label">{s.label}</div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <div className="hero-profile">
                 <div className="hero-profile-frame" />
                 <Image
-                  src="https://i.imgur.com/NouCHp8.png"
+                  src={CONFIG.hero.fotoCorretor}
                   alt={`${SITE.name} - Corretor de Imóveis`}
                   width={520}
                   height={640}
@@ -196,7 +160,7 @@ export default function HomePage() {
             <div className="about-media">
               <div className="about-img-wrap">
                 <Image
-                  src="https://i.imgur.com/r93bu5p.jpeg"
+                  src={CONFIG.sobre.foto}
                   alt={`${SITE.name} - Corretor de Imóveis`}
                   width={640}
                   height={800}
@@ -212,17 +176,8 @@ export default function HomePage() {
                 Thiago <span>Bostock</span>
               </h2>
 
-              <p className="about-text">
-                Com mais de uma década de experiência no mercado imobiliário da Bahia, Thiago Bostock tornou-se
-                sinônimo de credibilidade, resultado e atendimento de excelência. Credenciado pelo CRECI{' '}
-                {SITE.creci}, atua com total transparência em cada negociação.
-              </p>
-              <p className="about-text">
-                Sua missão é simples:{' '}
-                <strong style={{ color: '#D4AF37' }}>construir com sabedoria é investir com sucesso</strong>. Cada
-                imóvel apresentado é analisado criteriosamente para garantir o melhor retorno e segurança jurídica
-                para seus clientes.
-              </p>
+              <p className="about-text">{CONFIG.sobre.paragrafo1}</p>
+              <p className="about-text">{CONFIG.sobre.paragrafo2}</p>
 
               <div className="about-stats">
                 <div>
@@ -423,7 +378,7 @@ export default function HomePage() {
                 </div>
                 <div>
                   <div className="contact-label">Horário de Atendimento</div>
-                  <div className="contact-value">Seg–Sex: 8h–18h | Sáb: 8h–12h</div>
+                  <div className="contact-value">{CONFIG.contato.horario}</div>
                 </div>
               </div>
 

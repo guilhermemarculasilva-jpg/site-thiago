@@ -422,3 +422,199 @@ img {
   max-width: 100%;
   height: auto;
 }
+
+/* ==========================================================================
+   GALERIA DE FOTOS DO IMÓVEL (components/Gallery.tsx)
+   Carrossel responsivo: setas no desktop, swipe no celular, zoom em tela cheia.
+   ========================================================================== */
+
+.galeria { margin-bottom: 40px; }
+
+.galeria-palco {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #111;
+  touch-action: pan-y;
+}
+
+.galeria-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .45s ease;
+  pointer-events: none;
+}
+.galeria-slide.ativo { opacity: 1; pointer-events: auto; }
+
+.galeria-seta {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(8, 8, 8, .6);
+  color: #fff;
+  cursor: pointer;
+  transition: background .2s, transform .2s;
+  z-index: 3;
+  backdrop-filter: blur(4px);
+}
+.galeria-seta:hover { background: var(--gold, #D4AF37); color: #080808; }
+.galeria-seta:focus-visible { outline: 2px solid var(--gold, #D4AF37); outline-offset: 2px; }
+.galeria-seta.esq { left: 14px; }
+.galeria-seta.dir { right: 14px; }
+
+.galeria-contador {
+  position: absolute;
+  bottom: 14px;
+  right: 14px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: rgba(8, 8, 8, .7);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  z-index: 3;
+  backdrop-filter: blur(4px);
+}
+
+.galeria-zoom {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 10px;
+  background: rgba(8, 8, 8, .6);
+  color: #fff;
+  cursor: pointer;
+  z-index: 3;
+  transition: background .2s;
+  backdrop-filter: blur(4px);
+}
+.galeria-zoom:hover { background: var(--gold, #D4AF37); color: #080808; }
+
+.galeria-miniaturas {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  padding-bottom: 4px;
+  scroll-snap-type: x proximity;
+}
+.galeria-miniaturas::-webkit-scrollbar { height: 5px; }
+.galeria-miniaturas::-webkit-scrollbar-thumb { background: rgba(212,175,55,.5); border-radius: 3px; }
+
+.galeria-mini {
+  flex: 0 0 auto;
+  width: 104px;
+  height: 70px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 9px;
+  overflow: hidden;
+  cursor: pointer;
+  background: #111;
+  opacity: .55;
+  transition: opacity .2s, border-color .2s;
+  scroll-snap-align: center;
+}
+.galeria-mini img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.galeria-mini:hover { opacity: .85; }
+.galeria-mini.ativa { opacity: 1; border-color: var(--gold, #D4AF37); }
+
+.galeria-pontos { display: none; gap: 8px; justify-content: center; margin-top: 14px; }
+.galeria-ponto {
+  width: 8px; height: 8px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,.3);
+  cursor: pointer;
+  transition: background .2s, width .2s;
+}
+.galeria-ponto.ativo { background: var(--gold, #D4AF37); width: 22px; border-radius: 4px; }
+
+/* Tela cheia */
+.galeria-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0, 0, 0, .95);
+  display: grid;
+  place-items: center;
+  padding: 40px 20px;
+  animation: galeriaFade .2s ease;
+}
+@keyframes galeriaFade { from { opacity: 0 } to { opacity: 1 } }
+
+.galeria-lightbox-img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 1400px;
+}
+
+.galeria-fechar {
+  position: absolute;
+  top: 18px;
+  right: 22px;
+  width: 42px;
+  height: 42px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255,255,255,.12);
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 4;
+  transition: background .2s;
+}
+.galeria-fechar:hover { background: var(--gold, #D4AF37); color: #080808; }
+
+.galeria-seta.grande { width: 54px; height: 54px; }
+.galeria-lightbox .galeria-seta.esq { left: 24px; }
+.galeria-lightbox .galeria-seta.dir { right: 24px; }
+
+.galeria-lightbox-contador {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: rgba(255,255,255,.1);
+}
+
+@media (max-width: 768px) {
+  .galeria-palco { aspect-ratio: 4 / 3; border-radius: 12px; }
+  .galeria-miniaturas { display: none; }
+  .galeria-pontos { display: flex; }
+  .galeria-seta { width: 38px; height: 38px; }
+  .galeria-seta.esq { left: 8px; }
+  .galeria-seta.dir { right: 8px; }
+  .galeria-lightbox { padding: 12px; }
+  .galeria-lightbox .galeria-seta.esq { left: 10px; }
+  .galeria-lightbox .galeria-seta.dir { right: 10px; }
+  .galeria-seta.grande { width: 42px; height: 42px; }
+}
+
+/* Respeita quem prefere menos animação */
+@media (prefers-reduced-motion: reduce) {
+  .galeria-slide { transition: none; }
+  .galeria-lightbox { animation: none; }
+}

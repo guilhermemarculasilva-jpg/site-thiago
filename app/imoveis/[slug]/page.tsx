@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { getImovel, getSlugs, getImoveis } from '@/lib/imoveis';
 import { formatPrice, whatsappLink, SITE } from '@/lib/site';
 import PropertyCard from '@/components/PropertyCard';
+import Gallery from '@/components/Gallery';
 import { IconMapPin, IconBed, IconBath, IconArea, IconCar, IconWhatsApp, IconArrowRight } from '@/components/icons';
 
 /** Gera as rotas estáticas no build — equivalente ao permalink do CPT */
@@ -35,6 +36,9 @@ export default function ImovelPage({ params }: { params: { slug: string } }) {
 
   const preco = imovel.finalidade === 'aluguel' ? `${formatPrice(imovel.valor)}/mês` : formatPrice(imovel.valor);
 
+  // Capa + galeria, sem repetir a mesma foto
+  const fotos = Array.from(new Set([imovel.imagem, ...(imovel.galeria || [])].filter(Boolean)));
+
   const relacionados = getImoveis()
     .filter((i) => i.slug !== imovel.slug && i.tipo === imovel.tipo)
     .slice(0, 3);
@@ -44,7 +48,7 @@ export default function ImovelPage({ params }: { params: { slug: string } }) {
     '@type': 'RealEstateListing',
     name: imovel.titulo,
     description: imovel.descricao,
-    image: imovel.imagem,
+    image: fotos,
     offers: {
       '@type': 'Offer',
       price: imovel.valor,
@@ -115,6 +119,8 @@ export default function ImovelPage({ params }: { params: { slug: string } }) {
                   <div className="imovel-spec-label">m² úteis</div>
                 </div>
               </div>
+
+              {fotos.length > 1 && <Gallery fotos={fotos} titulo={imovel.titulo} />}
 
               <h2 className="imovel-section-title">Sobre o imóvel</h2>
               <p className="imovel-desc">{imovel.descricao}</p>

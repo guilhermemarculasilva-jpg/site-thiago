@@ -1,0 +1,59 @@
+import type { Metadata } from 'next';
+import { Inter, Playfair_Display } from 'next/font/google';
+import './theme.css';
+import './main-extra.css';
+import Header from '@/components/Header';
+import Footer from '@/components/Footer';
+import WhatsAppFloat from '@/components/WhatsAppFloat';
+import { SITE } from '@/lib/site';
+
+const inter = Inter({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700', '800', '900'],
+  variable: '--font-inter',
+  display: 'swap',
+});
+
+const playfair = Playfair_Display({
+  subsets: ['latin'],
+  weight: ['700', '900'],
+  variable: '--font-playfair',
+  display: 'swap',
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
+  title: {
+    default: `${SITE.name} — Consultoria Imobiliária de Alto Padrão em Barreiras`,
+    template: `%s | ${SITE.name}`,
+  },
+  description:
+    'Consultoria imobiliária exclusiva em Barreiras e região. Imóveis de alto padrão, financiamento com as melhores taxas e atendimento personalizado. CRECI ' +
+    SITE.creci,
+  keywords: ['imóveis Barreiras', 'casas alto padrão Bahia', 'corretor Barreiras', 'financiamento imobiliário'],
+  openGraph: {
+    type: 'website',
+    locale: 'pt_BR',
+    siteName: SITE.fullName,
+    title: `${SITE.name} — Consultoria Imobiliária de Alto Padrão`,
+    description: 'Construir com sabedoria é investir com sucesso. Imóveis exclusivos em Barreiras e região.',
+  },
+  robots: { index: true, follow: true },
+};
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="pt-BR" className={`${inter.variable} ${playfair.variable}`}>
+      <body className="tb-theme">
+        <div id="page" className="site-wrapper">
+          <Header />
+          <div id="content" className="site-content">
+            {children}
+          </div>
+          <Footer />
+        </div>
+        <WhatsAppFloat />
+      </body>
+    </html>
+  );
+}

@@ -1,0 +1,424 @@
+/* =====================================================
+   COMPLEMENTOS DA MIGRAÇÃO NEXT.JS
+   Estilos para componentes que não existiam no tema WP:
+   páginas internas, ficha do imóvel, filtros e resultado
+   do simulador. Usa as mesmas variáveis do theme.css.
+   ===================================================== */
+
+/* Fontes via next/font */
+body.tb-theme {
+  font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+.hero-title,
+.section-title,
+.page-hero-title,
+.imovel-title,
+.newsletter-title {
+  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
+}
+
+/* Logo no header/footer */
+.logo-img {
+  width: 52px;
+  height: 52px;
+  object-fit: contain;
+}
+
+/* ---------------------------------------------------------------
+   CORREÇÃO DE BUG HERDADO DO TEMA WORDPRESS
+   No style.css original, o botão hambúrguer vive dentro de
+   .header-cta, e a media query de 968px faz:
+       .main-nav, .header-cta { display: none; }
+       .hamburger { display: flex; }
+   Como o pai é escondido, o hambúrguer nunca aparecia no celular —
+   o site ficava sem navegação nenhuma em telas pequenas.
+   Aqui o .header-cta volta a ser exibido, mas só com o botão.
+   --------------------------------------------------------------- */
+@media (max-width: 968px) {
+  .header-cta {
+    display: flex !important;
+    align-items: center;
+  }
+  .header-cta .btn-gold {
+    display: none; /* o CTA dourado continua oculto; sobra o hambúrguer */
+  }
+  .hamburger {
+    display: flex !important;
+  }
+}
+
+/* O menu mobile do tema alterna via display; garantimos o empilhamento */
+.mobile-menu {
+  overflow-y: auto;
+  padding: 80px 24px;
+}
+
+/* ---------- Hero das páginas internas ---------- */
+.page-hero {
+  padding: 180px 0 80px;
+  background: var(--black, #080808);
+  text-align: center;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+}
+.page-hero-title {
+  font-size: clamp(2.2rem, 5vw, 3.6rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  margin: 16px 0;
+}
+.page-hero-title span {
+  color: var(--gold, #d4af37);
+}
+.page-hero-desc {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 1.05rem;
+  max-width: 640px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* ---------- Filtros ---------- */
+.filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 48px;
+  justify-content: center;
+}
+.filter-chip {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 100px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.03);
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+.filter-chip:hover {
+  border-color: rgba(212, 175, 55, 0.5);
+  color: var(--gold, #d4af37);
+}
+.filter-chip.active {
+  background: var(--gold, #d4af37);
+  border-color: var(--gold, #d4af37);
+  color: #080808;
+}
+
+/* ---------- Estado vazio ---------- */
+.empty-state {
+  text-align: center;
+  padding: 80px 24px;
+  border: 1px dashed rgba(212, 175, 55, 0.25);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.02);
+}
+.empty-state h2 {
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+.empty-state p {
+  color: rgba(255, 255, 255, 0.55);
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* ---------- Página do imóvel ---------- */
+.imovel-hero {
+  position: relative;
+  min-height: 62vh;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: 60px;
+  padding-top: 160px;
+  overflow: hidden;
+}
+.imovel-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(8, 8, 8, 0.96) 5%, rgba(8, 8, 8, 0.55) 55%, rgba(8, 8, 8, 0.85) 100%);
+  z-index: 1;
+}
+.imovel-hero-content {
+  position: relative;
+  z-index: 2;
+  /* .container é flex item aqui; sem width:100% ele encolhe até o conteúdo */
+  width: 100%;
+}
+.imovel-back {
+  display: block;
+  width: fit-content;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  margin-bottom: 20px;
+  transition: color 0.2s;
+}
+.imovel-back:hover {
+  color: var(--gold, #d4af37);
+}
+.imovel-hero-badge {
+  position: static;
+  display: block;
+  width: fit-content;
+  margin-bottom: 16px;
+}
+.imovel-title {
+  font-size: clamp(2rem, 5vw, 3.4rem);
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.imovel-location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+.imovel-price {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 900;
+  color: var(--gold, #d4af37);
+}
+
+.imovel-grid {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 60px;
+  align-items: start;
+}
+@media (max-width: 968px) {
+  .imovel-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.imovel-specs {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 16px;
+  margin-bottom: 56px;
+}
+.imovel-spec {
+  text-align: center;
+  padding: 24px 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  color: var(--gold, #d4af37);
+}
+.imovel-spec-num {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #fff;
+  margin-top: 8px;
+  line-height: 1;
+}
+.imovel-spec-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 6px;
+}
+
+.imovel-section-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #fff;
+  margin: 40px 0 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+}
+.imovel-desc {
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 2;
+  font-size: 1rem;
+}
+
+.imovel-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.imovel-table th,
+.imovel-table td {
+  padding: 16px 0;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  font-size: 14px;
+}
+.imovel-table th {
+  color: rgba(255, 255, 255, 0.45);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 11px;
+  width: 40%;
+}
+.imovel-table td {
+  color: #fff;
+  font-weight: 600;
+}
+
+.imovel-sidebar {
+  position: sticky;
+  top: 110px;
+}
+.imovel-cta-card {
+  background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(16, 16, 16, 0.95));
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  border-radius: 20px;
+  padding: 32px;
+}
+.imovel-cta-price {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--gold, #d4af37);
+  line-height: 1;
+}
+.imovel-cta-code {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  margin: 8px 0 28px;
+}
+.imovel-cta-btn {
+  width: 100%;
+  justify-content: center;
+  margin-bottom: 12px;
+  border-radius: 12px;
+}
+.imovel-cta-agent {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+}
+.imovel-cta-agent-name {
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+}
+.imovel-cta-agent-creci {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* Card de imóvel: links herdam a cor */
+.property-title a,
+.property-card-media a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+/* ---------- Resultado do simulador ---------- */
+.simulator-result {
+  margin: 24px 0;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(212, 175, 55, 0.18);
+  border-radius: 14px;
+}
+.simulator-result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 8px 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+}
+.simulator-result-row strong {
+  color: #fff;
+  font-weight: 700;
+}
+.simulator-result-main {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 8px;
+  padding-top: 14px;
+}
+.simulator-result-main strong {
+  color: var(--gold, #d4af37);
+  font-size: 1.4rem;
+  font-weight: 900;
+}
+.simulator-disclaimer {
+  font-size: 10px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.35);
+  margin-top: 12px;
+}
+
+/* ---------- Página de financiamento ---------- */
+.financing-howto {
+  margin-top: 48px;
+  padding: 32px;
+  background: var(--gray-800, #1a1a1a);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  border-radius: 20px;
+}
+.financing-howto h3 {
+  color: var(--gold, #d4af37);
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.financing-howto ul {
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 2.2;
+  padding-left: 0;
+  list-style: none;
+}
+
+/* ---------- Footer: rótulos de contato ---------- */
+.footer-contact-label {
+  color: #d4af37;
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+/* ---------- 404 ---------- */
+.error-404 {
+  padding: 220px 0 140px;
+  text-align: center;
+}
+.error-404-num {
+  font-size: clamp(5rem, 18vw, 11rem);
+  font-weight: 900;
+  line-height: 1;
+  color: rgba(212, 175, 55, 0.14);
+  letter-spacing: -0.04em;
+}
+
+/* ---------- Ajustes gerais ---------- */
+.form-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}

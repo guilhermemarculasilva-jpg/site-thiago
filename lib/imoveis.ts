@@ -89,3 +89,4 @@ export const FINALIDADES: { value: Finalidade; label: string }[] = [
   { value: 'aluguel', label: 'Alugar' },
   { value: 'lancamento', label: 'Lançamento' },
 ];
+

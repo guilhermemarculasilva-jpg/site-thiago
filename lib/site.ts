@@ -8,7 +8,7 @@ export const SITE = {
   whatsapp: '5577991555610',
   creci: '36.772',
   email: 'contato@thiagobostock.com.br',
-  location: 'Barreiras, Bahia — Brasil',
+  location: 'Bom Jesus da Lapa, Bahia — Brasil',
   url: 'https://thiagobostock.com.br',
 } as const;
 

@@ -1,5 +1,34 @@
 [
   {
+    "slug": "teste",
+    "titulo": "teste",
+    "descricao": "teste teste",
+    "valor": 100000,
+    "area": 90,
+    "quartos": 3,
+    "banheiros": 2,
+    "vagas": 1,
+    "endereco": "asdasd",
+    "cidade": "Barreiras",
+    "bairro": "asdasd",
+    "codigo": "TB-010",
+    "tipo": "casa",
+    "finalidade": "aluguel",
+    "destaque": true,
+    "imagem": "/uploads/imovel-1789515590764-fhp6k.jpg",
+    "galeria": [
+      "/uploads/imovel-1789515590764-fhp6k.jpg",
+      "/uploads/imovel-1789515592373-xjw9r.jpg",
+      "/uploads/imovel-1789515594039-8owuj.jpg",
+      "/uploads/imovel-1789515595478-gvlzw.jpg",
+      "/uploads/imovel-1789515597216-l9fh7.jpg",
+      "/uploads/imovel-1789515599223-ftcct.jpg",
+      "/uploads/imovel-1789515600912-l62zc.jpg",
+      "/uploads/imovel-1789515602340-rpydd.jpg",
+      "/uploads/imovel-1789515604248-txl9n.jpg"
+    ]
+  },
+  {
     "slug": "mansao-alphaville",
     "titulo": "Mansão Alphaville",
     "descricao": "Residência de alto padrão em condomínio fechado, com acabamento premium, piscina aquecida, espaço gourmet integrado e ampla área verde. Projeto arquitetônico assinado, com iluminação natural em todos os ambientes.",

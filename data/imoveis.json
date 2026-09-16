@@ -29,36 +29,6 @@
     ]
   },
   {
-    "slug": "mansao-alphaville",
-    "titulo": "Mansão Alphaville",
-    "descricao": "Residência de alto padrão em condomínio fechado, com acabamento premium, piscina aquecida, espaço gourmet integrado e ampla área verde. Projeto arquitetônico assinado, com iluminação natural em todos os ambientes.",
-    "valor": 4500000,
-    "area": 450,
-    "quartos": 4,
-    "banheiros": 6,
-    "vagas": 4,
-    "endereco": "Alameda das Palmeiras, 120",
-    "cidade": "Barreiras",
-    "bairro": "Alphaville",
-    "codigo": "TB-001",
-    "tipo": "casa",
-    "finalidade": "venda",
-    "destaque": true,
-    "imagem": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80",
-    "galeria": [
-      "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=1200&q=80",
-      "/uploads/mansao-alphaville-1789515444942-mt31o.jpg",
-      "/uploads/mansao-alphaville-1789515447852-v0hf9.jpg",
-      "/uploads/mansao-alphaville-1789515449286-apdor.jpg",
-      "/uploads/mansao-alphaville-1789515450823-ynnq7.jpg",
-      "/uploads/mansao-alphaville-1789515453047-dnyeq.jpg",
-      "/uploads/mansao-alphaville-1789515454850-cgi58.jpg",
-      "/uploads/mansao-alphaville-1789515456376-7w6vh.jpg",
-      "/uploads/mansao-alphaville-1789515457738-0ig6g.jpg",
-      "/uploads/mansao-alphaville-1789515459402-dq35a.jpg"
-    ]
-  },
-  {
     "slug": "penthouse-luxo",
     "titulo": "Penthouse Luxo",
     "descricao": "Cobertura duplex com vista panorâmica da cidade, terraço privativo com piscina de borda infinita e automação completa. Acabamento em mármore e madeira nobre.",

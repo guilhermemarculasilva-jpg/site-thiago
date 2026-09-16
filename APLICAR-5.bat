@@ -1,9 +1,9 @@
 @echo off
 chcp 65001 >nul
-title Corrige o carrossel da pagina do imovel
+title Corrige abertura da pagina e capa do imovel
 
 echo ============================================================
-echo   CORRECAO DO CARROSSEL
+echo   PAGINA ABRE NO TOPO + CAPA NITIDA
 echo ============================================================
 echo.
 
@@ -15,10 +15,11 @@ if not exist ".git" (
   exit /b 1
 )
 
-echo [1/3] Copiando o arquivo corrigido...
-xcopy /e /i /y /q "correcoes4\app" "app" >nul
+echo [1/3] Copiando os arquivos corrigidos...
+xcopy /e /i /y /q "correcoes5\app"        "app"        >nul
+xcopy /e /i /y /q "correcoes5\components" "components" >nul
 if errorlevel 1 (
-  echo [ERRO] A pasta "correcoes4" nao esta aqui do lado.
+  echo [ERRO] A pasta "correcoes5" nao esta aqui do lado.
   pause
   exit /b 1
 )
@@ -39,7 +40,7 @@ echo.
 echo [3/3] Enviando...
 echo.
 git add -A
-git commit -m "corrige carrossel empurrando o layout"
+git commit -m "pagina do imovel abre no topo e capa nitida"
 git push
 if errorlevel 1 (
   echo.

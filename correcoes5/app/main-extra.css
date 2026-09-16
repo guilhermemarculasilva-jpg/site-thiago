@@ -6,7 +6,7 @@
    ===================================================== */
 
 /* Fontes via next/font */
-body.tb-theme {
+.tb-theme {
   font-family: var(--font-inter), 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 .hero-title,
@@ -939,4 +939,293 @@ body { --header-h: 88px; }
 .interna-hero,
 .hero-interna {
   padding-top: calc(var(--header-h, 88px) + clamp(24px, 4vw, 56px));
+}
+
+/* ============================================================
+   11. CORREÇÃO DO TEMA NO GRUPO (site)
+   ------------------------------------------------------------
+   O tema era escrito como `body.tb-theme`, mas depois da criação
+   do grupo de rotas (site) a classe passou a viver numa <div>.
+   Os seletores foram convertidos para `.tb-theme`; falta garantir
+   que a div se comporte como a página inteira.
+   ============================================================ */
+
+.tb-theme {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+}
+
+/* O fundo precisa cobrir a área além do conteúdo (barra de rolagem,
+   efeito de "puxar" no celular). O <body> é compartilhado com o
+   /admin, então pintamos só quando o tema do site está presente. */
+html:has(.tb-theme),
+html:has(.tb-theme) body {
+  background-color: #080808;
+}
+
+/* Navegadores sem :has() — fundo herdado pela própria div */
+.tb-theme {
+  background-color: #080808;
+  color: #f5f2ec;
+}
+
+/* Os números das características (3 quartos, 2 banheiros...) estavam
+   herdando o azul padrão de link do navegador. */
+.tb-theme .imovel-spec-num,
+.tb-theme .imovel-spec-label,
+.tb-theme .imovel-spec {
+  text-decoration: none;
+}
+
+.tb-theme .imovel-spec-num { color: #ffffff; }
+.tb-theme .imovel-spec-label { color: rgba(255, 255, 255, 0.45); }
+
+/* ============================================================
+   12. ITEM ATIVO DO MENU
+   ------------------------------------------------------------
+   Antes o destaque só aparecia no :hover. Agora o item da página
+   (ou da seção que está passando pela tela) fica dourado com um
+   traço embaixo — o mesmo visual do hover, porém permanente.
+   ============================================================ */
+
+.tb-theme .main-nav ul li a.ativo,
+.tb-theme #primary-menu li a.ativo {
+  color: var(--gold, #c9a86a);
+}
+
+/* O traço dourado sob o item ativo */
+.tb-theme .main-nav ul li a.ativo::after,
+.tb-theme #primary-menu li a.ativo::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  background: var(--gold, #c9a86a);
+  border-radius: 2px;
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* Garante que o ::after tenha referência de posição */
+.tb-theme .main-nav ul li a,
+.tb-theme #primary-menu li a {
+  position: relative;
+}
+
+/* Menu do celular: barra dourada à esquerda */
+.tb-theme .mobile-menu a.ativo {
+  color: var(--gold, #c9a86a);
+  border-left: 3px solid var(--gold, #c9a86a);
+  padding-left: 14px;
+}
+
+/* ============================================================
+   13. PÁGINA DO IMÓVEL — RESPIRO E LEGIBILIDADE
+   ------------------------------------------------------------
+   No print o selo "TB-010" aparecia cortado pela faixa preta do
+   cabeçalho e o conteúdo começava colado no topo.
+   ============================================================ */
+
+.tb-theme .imovel-hero {
+  /* faixa do cabeçalho + folga real para o selo do código */
+  padding-top: calc(var(--header-h, 88px) + clamp(40px, 7vw, 86px));
+  padding-bottom: clamp(40px, 6vw, 68px);
+  min-height: clamp(380px, 58vh, 620px);
+}
+
+.tb-theme .imovel-hero-badge {
+  margin-bottom: 18px;
+}
+
+/* O gradiente escuro precisa cobrir bem a área do texto */
+.tb-theme .imovel-hero-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(8, 8, 8, 0.97) 0%,
+    rgba(8, 8, 8, 0.82) 38%,
+    rgba(8, 8, 8, 0.55) 68%,
+    rgba(8, 8, 8, 0.88) 100%
+  );
+}
+
+/* Cartões das características: mais legíveis sobre o fundo preto */
+.tb-theme .imovel-spec {
+  background: rgba(255, 255, 255, 0.045);
+  border-color: rgba(201, 168, 106, 0.18);
+}
+
+.tb-theme .imovel-spec-num {
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  margin-top: 10px;
+}
+
+@media (max-width: 560px) {
+  .tb-theme .imovel-hero {
+    padding-top: calc(var(--header-h, 70px) + clamp(34px, 9vw, 60px));
+  }
+}
+
+/* ============================================================
+   14. ENDEREÇO DO IMÓVEL — ÍCONE JUNTO DO TEXTO
+   ------------------------------------------------------------
+   Com `flex-wrap: wrap` o alfinete do mapa quebrava para uma
+   linha sozinha no celular, longe do endereço.
+   ============================================================ */
+
+.tb-theme .imovel-location {
+  display: flex;
+  flex-wrap: nowrap;        /* o ícone não se separa do texto */
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.45;
+}
+
+.tb-theme .imovel-location svg {
+  flex: 0 0 auto;           /* o ícone não encolhe */
+  margin-top: 2px;          /* alinha com a primeira linha do texto */
+}
+
+/* ============================================================
+   15. CARROSSEL EMPURRANDO A BARRA LATERAL PARA FORA DA TELA
+   ------------------------------------------------------------
+   Sintoma: na página de um imóvel COM galeria, o conteúdo saía
+   alinhado à esquerda, o carrossel ficava largo demais e sobrava
+   uma faixa preta à direita. Em imóveis SEM galeria era normal.
+
+   Causa: a fita de miniaturas tem 9 imagens de 104px. Como item
+   de grid nasce com `min-width: auto`, a primeira coluna não
+   podia encolher abaixo do conteúdo dela (1016px). Somando a
+   barra lateral (380px) e o vão (60px), o grid pedia 1456px
+   dentro de um container de 1232px — a barra lateral era
+   empurrada 224px para fora da tela.
+
+   Medido em produção antes/depois:
+     antes   colunas 1016px 380px  -> sidebar right=1624 (tela 1568)
+     depois  colunas  792px 380px  -> sidebar right=1400  ✔
+   ============================================================ */
+
+.tb-theme .imovel-grid > * {
+  min-width: 0;
+}
+
+.tb-theme .galeria,
+.tb-theme .galeria-palco,
+.tb-theme .galeria-miniaturas {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* A fita rola por dentro em vez de esticar a coluna */
+.tb-theme .galeria-miniaturas {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
+.tb-theme .galeria-mini {
+  flex: 0 0 auto;
+}
+
+/* A barra lateral nunca deve ultrapassar a área útil */
+.tb-theme .imovel-sidebar {
+  min-width: 0;
+  max-width: 100%;
+  justify-self: stretch;
+}
+
+/* ============================================================
+   16. CAPA DO IMÓVEL — NITIDEZ E ENQUADRAMENTO
+   ------------------------------------------------------------
+   As fotos do painel costumam ser verticais (1024x1280). Ao serem
+   esticadas na largura inteira do hero (1568px) a imagem era
+   ampliada ~1,5x e aparecia borrada e mal cortada.
+
+   Agora o hero tem duas camadas:
+     .imovel-hero-fundo  - a foto ampliada e DESFOCADA, só preenche
+     .imovel-hero-foto   - a foto nítida, à direita, sem distorcer
+
+   O texto fica sobre a área escura à esquerda, sempre legível.
+   ============================================================ */
+
+.tb-theme .imovel-hero {
+  position: relative;
+  isolation: isolate;
+  background-color: #080808;
+}
+
+/* Camada de trás: preenche a largura sem exigir nitidez */
+.tb-theme .imovel-hero-fundo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.tb-theme .imovel-hero-fundo img {
+  filter: blur(26px) saturate(115%) brightness(0.42);
+  transform: scale(1.12);   /* evita bordas transparentes do desfoque */
+}
+
+/* Camada da frente: a foto de verdade, nítida */
+.tb-theme .imovel-hero-foto {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: min(62%, 1000px);
+  z-index: 1;
+  overflow: hidden;
+  /* dissolve a borda esquerda da foto no fundo escuro */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 34%, #000 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 34%, #000 100%);
+}
+
+/* O véu escuro fica entre a foto e o texto */
+.tb-theme .imovel-hero-overlay {
+  z-index: 2;
+  background: linear-gradient(
+    100deg,
+    rgba(8, 8, 8, 0.97) 0%,
+    rgba(8, 8, 8, 0.92) 30%,
+    rgba(8, 8, 8, 0.55) 58%,
+    rgba(8, 8, 8, 0.38) 100%
+  );
+}
+
+.tb-theme .imovel-hero-content {
+  z-index: 3;
+}
+
+/* Celular: a foto ocupa o topo inteiro e o texto vem por baixo dela */
+@media (max-width: 968px) {
+  .tb-theme .imovel-hero-foto {
+    width: 100%;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 100%);
+  }
+
+  .tb-theme .imovel-hero-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(8, 8, 8, 0.98) 0%,
+      rgba(8, 8, 8, 0.9) 34%,
+      rgba(8, 8, 8, 0.45) 68%,
+      rgba(8, 8, 8, 0.7) 100%
+    );
+  }
+}
+
+/* Altura do hero: fotos verticais precisam de mais espaço para
+   não serem cortadas num filete. */
+.tb-theme .imovel-hero {
+  min-height: clamp(460px, 64vh, 680px);
+}
+
+@media (max-width: 968px) {
+  .tb-theme .imovel-hero {
+    min-height: clamp(420px, 72vh, 620px);
+  }
 }

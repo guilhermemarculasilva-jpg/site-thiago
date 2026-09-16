@@ -1135,3 +1135,97 @@ html:has(.tb-theme) body {
   max-width: 100%;
   justify-self: stretch;
 }
+
+/* ============================================================
+   16. CAPA DO IMÓVEL — NITIDEZ E ENQUADRAMENTO
+   ------------------------------------------------------------
+   As fotos do painel costumam ser verticais (1024x1280). Ao serem
+   esticadas na largura inteira do hero (1568px) a imagem era
+   ampliada ~1,5x e aparecia borrada e mal cortada.
+
+   Agora o hero tem duas camadas:
+     .imovel-hero-fundo  - a foto ampliada e DESFOCADA, só preenche
+     .imovel-hero-foto   - a foto nítida, à direita, sem distorcer
+
+   O texto fica sobre a área escura à esquerda, sempre legível.
+   ============================================================ */
+
+.tb-theme .imovel-hero {
+  position: relative;
+  isolation: isolate;
+  background-color: #080808;
+}
+
+/* Camada de trás: preenche a largura sem exigir nitidez */
+.tb-theme .imovel-hero-fundo {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.tb-theme .imovel-hero-fundo img {
+  filter: blur(26px) saturate(115%) brightness(0.42);
+  transform: scale(1.12);   /* evita bordas transparentes do desfoque */
+}
+
+/* Camada da frente: a foto de verdade, nítida */
+.tb-theme .imovel-hero-foto {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: min(62%, 1000px);
+  z-index: 1;
+  overflow: hidden;
+  /* dissolve a borda esquerda da foto no fundo escuro */
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 34%, #000 100%);
+  mask-image: linear-gradient(to right, transparent 0%, #000 34%, #000 100%);
+}
+
+/* O véu escuro fica entre a foto e o texto */
+.tb-theme .imovel-hero-overlay {
+  z-index: 2;
+  background: linear-gradient(
+    100deg,
+    rgba(8, 8, 8, 0.97) 0%,
+    rgba(8, 8, 8, 0.92) 30%,
+    rgba(8, 8, 8, 0.55) 58%,
+    rgba(8, 8, 8, 0.38) 100%
+  );
+}
+
+.tb-theme .imovel-hero-content {
+  z-index: 3;
+}
+
+/* Celular: a foto ocupa o topo inteiro e o texto vem por baixo dela */
+@media (max-width: 968px) {
+  .tb-theme .imovel-hero-foto {
+    width: 100%;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 100%);
+  }
+
+  .tb-theme .imovel-hero-overlay {
+    background: linear-gradient(
+      to top,
+      rgba(8, 8, 8, 0.98) 0%,
+      rgba(8, 8, 8, 0.9) 34%,
+      rgba(8, 8, 8, 0.45) 68%,
+      rgba(8, 8, 8, 0.7) 100%
+    );
+  }
+}
+
+/* Altura do hero: fotos verticais precisam de mais espaço para
+   não serem cortadas num filete. */
+.tb-theme .imovel-hero {
+  min-height: clamp(460px, 64vh, 680px);
+}
+
+@media (max-width: 968px) {
+  .tb-theme .imovel-hero {
+    min-height: clamp(420px, 72vh, 620px);
+  }
+}

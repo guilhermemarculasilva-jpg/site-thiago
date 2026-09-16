@@ -1,9 +1,10 @@
 @echo off
 chcp 65001 >nul
-title Corrige abertura da pagina e capa do imovel
+title Revisao de layout - 5 correcoes
 
 echo ============================================================
-echo   PAGINA ABRE NO TOPO + CAPA NITIDA
+echo   REVISAO DE LAYOUT
+echo   header no tablet, selo EXPLORE, dobra, contraste e acesso
 echo ============================================================
 echo.
 
@@ -16,10 +17,10 @@ if not exist ".git" (
 )
 
 echo [1/3] Copiando os arquivos corrigidos...
-xcopy /e /i /y /q "correcoes5\app"        "app"        >nul
-xcopy /e /i /y /q "correcoes5\components" "components" >nul
+xcopy /e /i /y /q "correcoes6\app"        "app"        >nul
+xcopy /e /i /y /q "correcoes6\components" "components" >nul
 if errorlevel 1 (
-  echo [ERRO] A pasta "correcoes5" nao esta aqui do lado.
+  echo [ERRO] A pasta "correcoes6" nao esta aqui do lado.
   pause
   exit /b 1
 )
@@ -40,7 +41,7 @@ echo.
 echo [3/3] Enviando...
 echo.
 git add -A
-git commit -m "pagina do imovel abre no topo e capa nitida"
+git commit -m "revisao de layout: tablet, dobra, contraste e acessibilidade"
 git push
 if errorlevel 1 (
   echo.
@@ -55,6 +56,6 @@ echo   ENVIADO
 echo ============================================================
 echo.
 echo A Vercel publica em 1 a 2 minutos.
-echo Depois abra a pagina do imovel e aperte Ctrl+Shift+R.
+echo Depois abra o site e aperte Ctrl+Shift+R.
 echo.
 pause

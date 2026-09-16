@@ -1229,3 +1229,212 @@ html:has(.tb-theme) body {
     min-height: clamp(420px, 72vh, 620px);
   }
 }
+
+/* ============================================================
+   17. CORREÇÕES DA REVISÃO DE LAYOUT (15/09/2026)
+   ------------------------------------------------------------
+   Aplicadas às classes REAIS do projeto. O guia recebido citava
+   nomes que não existem aqui (.nav-desktop, .sim-cta, .mobile-cta,
+   .footer-btn-whats, .hero-cta-scroll) — foram traduzidos para
+   .main-nav, .simulator-cta, .btn-whatsapp etc.
+   ============================================================ */
+
+/* --- 17.1 HEADER DUPLICADO NO TABLET ------------------------
+   Medido em produção:
+     834px -> menu e hambúrguer juntos; nav, CTA e hambúrguer fora da tela
+     900px -> menu e hambúrguer juntos; CTA e hambúrguer fora da tela
+    1024px -> CTA "Atendimento Exclusivo" AINDA fora da tela
+   O corte estava em 768px; o menu completo só cabe a partir de 1100px.
+   ------------------------------------------------------------ */
+
+/* Abaixo de 1100px: só o hambúrguer. Nunca os dois juntos. */
+@media (max-width: 1099.98px) {
+  .tb-theme .main-nav,
+  .tb-theme .header-cta .btn-gold {
+    display: none !important;
+  }
+
+  .tb-theme .hamburger {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    margin-left: auto;
+  }
+
+  .tb-theme .header-cta {
+    display: flex !important;
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 1100px) {
+  .tb-theme .main-nav { display: flex !important; }
+  .tb-theme .hamburger { display: none !important; }
+}
+
+/* O header vira grade: o menu do meio encolhe em vez de empurrar
+   o botão para fora da tela. */
+.tb-theme .header-inner {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: clamp(12px, 1.4vw, 28px);
+  align-items: center;
+}
+
+.tb-theme .main-nav {
+  min-width: 0;
+  justify-content: center;
+}
+
+.tb-theme .main-nav ul {
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+
+/* --- 17.2 SELO "EXPLORE" SOBRE AS MÉTRICAS ------------------
+   Medido: 52% a 56% de sobreposição de 320px até 1366px.
+   Ele é decorativo e estava em position:absolute sem limite.
+   Passa a aparecer só onde existe altura real de sobra.
+   ------------------------------------------------------------ */
+
+.tb-theme .hero-scroll {
+  display: none;
+}
+
+@media (min-width: 1100px) and (min-height: 940px) {
+  .tb-theme .hero-scroll {
+    display: flex;
+    bottom: clamp(20px, 3vh, 44px);
+  }
+}
+
+/* --- 17.3 HERO PASSA DA DOBRA NO NOTEBOOK -------------------
+   Medido em 1366x768: hero com 918px (120% da tela) e a barra de
+   busca começando em y=895px — fora da primeira tela.
+   ------------------------------------------------------------ */
+
+.tb-theme .hero-title {
+  text-wrap: balance;
+}
+
+/* Notebook de tela baixa: compacta o hero para a busca aparecer */
+@media (min-width: 1024px) and (max-height: 820px) {
+  .tb-theme .hero-section {
+    min-height: auto;
+    padding-top: calc(var(--header-h, 88px) + 28px);
+    padding-bottom: 40px;
+  }
+
+  .tb-theme .hero-title { font-size: clamp(2.4rem, 4.2vw, 3.6rem); }
+  .tb-theme .hero-subtitle { max-width: 46ch; }
+  .tb-theme .hero-stats { margin-top: 24px; }
+
+  /* A foto do corretor é o item mais alto do hero (630px). Em telas
+     baixas ela é a razão de a busca cair abaixo da dobra. */
+  .tb-theme .hero-profile,
+  .tb-theme .hero-profile-frame {
+    max-height: 46vh;
+  }
+
+  .tb-theme .hero-profile img,
+  .tb-theme .hero-profile-frame img {
+    max-height: 46vh;
+    object-fit: contain;
+    object-position: bottom;
+  }
+
+  .tb-theme .hero-inner { align-items: center; }
+  .tb-theme .hero-buttons { margin-top: 20px; }
+}
+
+/* --- 17.4 CONTRASTE ABAIXO DO MÍNIMO (WCAG AA) --------------
+   Medido com a cor composta sobre o fundo real:
+     título "Oportunidades"  2,10:1  (mínimo 3,0)
+     aviso de taxas          1,74:1  (mínimo 4,5)  <- disclaimer
+     labels das métricas     3,75:1  (mínimo 4,5)
+     descrição dos serviços  3,83:1  (mínimo 4,5)
+     texto do rodapé         3,81:1  (mínimo 4,5)
+   O botão da newsletter já estava correto (20:1) e não foi mexido.
+   ------------------------------------------------------------ */
+
+/* Sobre o dourado, texto escuro — branco dá 2:1 */
+.tb-theme .newsletter-title,
+.tb-theme .newsletter-subtitle {
+  color: #080808;
+}
+
+.tb-theme .newsletter-subtitle {
+  opacity: 0.82;
+}
+
+/* Textos secundários: de alpha .4 para .62 */
+.tb-theme .hero-stat-label,
+.tb-theme .service-desc,
+.tb-theme .footer-col p,
+.tb-theme .footer-brand-desc,
+.tb-theme .site-footer p {
+  color: rgba(255, 255, 255, 0.62);
+}
+
+/* O aviso de taxas é texto legal — precisa ser lido */
+.tb-theme .rate-note {
+  color: rgba(255, 255, 255, 0.68);
+}
+
+/* Botões verdes: texto verde-escuro em vez de branco */
+.tb-theme .btn-whatsapp,
+.tb-theme .simulator-cta {
+  color: #062e17;
+}
+
+/* --- 17.5 ACESSIBILIDADE ------------------------------------
+   Medido: links do menu com 14px de altura, "ver todos" 18px,
+   "saber mais" 16px, âncora #imoveis sem compensação do header.
+   ------------------------------------------------------------ */
+
+/* Âncoras não somem atrás do cabeçalho fixo */
+.tb-theme section[id],
+.tb-theme [id]:target {
+  scroll-margin-top: clamp(80px, 11vh, 112px);
+}
+
+/* Foco de teclado sempre visível */
+.tb-theme :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid var(--gold, #d4af37);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Alvos de toque de 44px */
+.tb-theme .main-nav ul li a,
+.tb-theme .view-all,
+.tb-theme .service-link,
+.tb-theme .site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+}
+
+/* O traço do menu ativo acompanha a nova altura */
+.tb-theme .main-nav ul li a.ativo::after,
+.tb-theme #primary-menu li a.ativo::after {
+  bottom: 4px;
+}
+
+/* Slider do simulador: trilha de 4px é difícil de acertar */
+.tb-theme .simulator-range {
+  height: 44px;
+  cursor: pointer;
+}
+
+.tb-theme .simulator-range::-webkit-slider-thumb {
+  width: 26px;
+  height: 26px;
+}
+
+.tb-theme .simulator-range::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+}

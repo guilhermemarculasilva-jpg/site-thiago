@@ -29,24 +29,6 @@
     ]
   },
   {
-    "slug": "penthouse-luxo",
-    "titulo": "Penthouse Luxo",
-    "descricao": "Cobertura duplex com vista panorâmica da cidade, terraço privativo com piscina de borda infinita e automação completa. Acabamento em mármore e madeira nobre.",
-    "valor": 8200000,
-    "area": 620,
-    "quartos": 5,
-    "banheiros": 7,
-    "vagas": 5,
-    "endereco": "Av. Ahylon Macêdo, 800",
-    "cidade": "Barreiras",
-    "bairro": "Centro",
-    "codigo": "TB-002",
-    "tipo": "apartamento",
-    "finalidade": "venda",
-    "destaque": true,
-    "imagem": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80"
-  },
-  {
     "slug": "cobertura-premium",
     "titulo": "Cobertura Premium",
     "descricao": "Cobertura com amplo living, varanda gourmet com churrasqueira e vista livre. Condomínio com infraestrutura completa de lazer e segurança 24h.",

@@ -14,7 +14,7 @@
 .page-hero-title,
 .imovel-title,
 .newsletter-title {
-  font-family: var(--font-playfair), 'Playfair Display', Georgia, serif;
+  font-family: var(--font-display), Georgia, 'Times New Roman', serif;
 }
 
 /* Logo no header/footer */
@@ -1541,4 +1541,56 @@ html:has(.tb-theme) body {
     padding-right: 20px;
     text-align: center;
   }
+}
+
+/* ============================================================
+   20. TIPOGRAFIA DOS TÍTULOS — CINZEL
+   ============================================================
+   A fonte dos títulos passou de Playfair Display para Cinzel.
+
+   Motivo: o site aplica text-transform:uppercase em todos os
+   títulos. A Playfair é uma didone de revista — no peso 900,
+   em caixa alta e com letter-spacing negativo (-0.03em), as
+   letras se fechavam e o resultado lembrava manchete de jornal.
+   A Cinzel é desenhada a partir de inscrições romanas em pedra
+   e existe apenas em caixa alta: é a ferramenta certa para o
+   uso que o site faz.
+
+   Ajustes necessários, todos medidos:
+
+   1. TAMANHO. A Cinzel é mais larga. Mantendo os 57px
+      originais, o H1 da home passava de 2 para 3 linhas e
+      empurrava a barra de busca para fora da primeira tela.
+      Reduzido para ~62px no desktop, o que devolve as 2 linhas.
+
+   2. ESPAÇAMENTO. O tema usava letter-spacing:-0.03em para
+      compensar o excesso de largura da Playfair em caixa alta.
+      Numa fonte de inscrição isso gruda as letras e destrói
+      justamente o ar que a torna elegante. Passa a 0.01em.
+
+   3. PESO. A Cinzel 700 já tem a presença que a Playfair só
+      alcançava no 900. O peso 900 nem existe nesta família.
+
+   Verificado em 390, 1366, 1568 e 1920: 2 linhas no H1, sem
+   vazamento lateral e com a busca visível na primeira tela.
+   ------------------------------------------------------------ */
+
+.tb-theme .hero-title {
+  font-size: clamp(2.3rem, 4.8vw, 3.9rem);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.08;
+}
+
+.tb-theme .section-title,
+.tb-theme .page-hero-title,
+.tb-theme .imovel-title,
+.tb-theme .newsletter-title {
+  font-weight: 700;
+  letter-spacing: 0.015em;
+}
+
+.tb-theme .section-title {
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+  line-height: 1.12;
 }

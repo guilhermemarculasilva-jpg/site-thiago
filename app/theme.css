@@ -24,7 +24,12 @@
   --white-20:     rgba(255,255,255,0.20);
   --white-40:     rgba(255,255,255,0.40);
   --white-60:     rgba(255,255,255,0.60);
-  --font-sans:    'Inter', 'Segoe UI', sans-serif;
+  /* Usa a Inter carregada pelo next/font. Antes esta variável
+     pedia 'Inter' literal: quem não tivesse a fonte instalada no
+     computador caía na fonte do sistema, e 18 elementos da home
+     (entre eles os botões "Enviar Mensagem" e "Quero Receber")
+     apareciam com tipografia diferente do resto do site. */
+  --font-sans:    var(--font-inter), 'Inter', 'Segoe UI', sans-serif;
   --section-py:   100px;
   --container-max: 1280px;
   --radius-sm:    8px;

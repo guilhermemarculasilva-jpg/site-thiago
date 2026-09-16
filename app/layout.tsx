@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
 import './reset.css';
 import './theme.css';
 import './main-extra.css';
@@ -12,11 +13,37 @@ const inter = Inter({
   display: 'swap',
 });
 
-const playfair = Playfair_Display({
-  subsets: ['latin'],
-  weight: ['700', '900'],
-  variable: '--font-playfair',
+/**
+ * Cinzel — fonte dos títulos.
+ *
+ * Desenhada por Natanael Gama a partir de inscrições romanas em
+ * pedra. É uma fonte só de caixa alta, que é exatamente como o
+ * site usa os títulos (text-transform: uppercase).
+ *
+ * Substitui a Playfair Display, que é uma "didone" de revista:
+ * no peso 900 e em caixa alta ela fechava demais e ficava com
+ * cara de manchete de jornal, não de marca de alto padrão.
+ *
+ * Servida do nosso próprio servidor (next/font/local), não do
+ * Google. Vantagens: carrega junto com o site, não depende de
+ * terceiros no ar, e não envia o IP do visitante ao Google —
+ * ponto relevante para a LGPD.
+ *
+ * Licença SIL Open Font License 1.1 (uso comercial livre).
+ * Texto completo em app/fonts/OFL-Cinzel.txt
+ */
+const cinzel = localFont({
+  src: [
+    { path: './fonts/Cinzel-400.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/Cinzel-600.woff2', weight: '600', style: 'normal' },
+    { path: './fonts/Cinzel-700.woff2', weight: '700', style: 'normal' },
+  ],
+  variable: '--font-display',
   display: 'swap',
+  // Ajusta o espaço que o texto ocupa antes da fonte carregar,
+  // evitando o "pulo" de layout que prejudica a nota do Google.
+  adjustFontFallback: 'Times New Roman',
+  fallback: ['Georgia', 'Times New Roman', 'serif'],
 });
 
 export const metadata: Metadata = {
@@ -64,7 +91,7 @@ export const viewport = {
  */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="pt-BR" className={`${inter.variable} ${cinzel.variable}`}>
       <body>{children}</body>
     </html>
   );

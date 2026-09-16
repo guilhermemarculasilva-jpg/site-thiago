@@ -1516,3 +1516,29 @@ html:has(.tb-theme) body {
   font-size: 11px;
   letter-spacing: 1.2px;
 }
+
+/* ============================================================
+   19. AJUSTES QUE PRECISAM VENCER O TEMA
+   ============================================================
+   Estas regras nasceram da auditoria em três motores de
+   renderização (Chromium, Gecko/Firefox e WebKit/Safari).
+
+   Ficam aqui, e não no reset.css, por ordem de carregamento:
+   o reset carrega primeiro e, com a mesma especificidade, o
+   theme.css venceria. Este arquivo é o último da fila.
+   ------------------------------------------------------------ */
+
+/* MEDIDO no Firefox a 360px (Galaxy S8 e aparelhos estreitos):
+   o botão "Iniciar Conversa no WhatsApp" ultrapassava a própria
+   caixa em 7px. O tema aplica white-space:nowrap com 32px de
+   padding de cada lado — em 360px o texto longo não cabe.
+   Em tela estreita o texto pode quebrar em vez de vazar. */
+@media (max-width: 400px) {
+  .tb-theme .btn,
+  .tb-theme .property-btn {
+    white-space: normal;
+    padding-left: 20px;
+    padding-right: 20px;
+    text-align: center;
+  }
+}

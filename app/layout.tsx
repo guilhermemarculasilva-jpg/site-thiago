@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
+import './reset.css';
 import './theme.css';
 import './main-extra.css';
 import { SITE } from '@/lib/site';

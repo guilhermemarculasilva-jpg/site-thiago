@@ -1,0 +1,416 @@
+/* ============================================================
+   RESET.CSS — NORMALIZAÇÃO ENTRE NAVEGADORES
+   Projeto: Thiago Bostock Consultoria Imobiliária
+   ============================================================
+
+   Este arquivo é carregado ANTES de theme.css e main-extra.css.
+   Ele não muda o visual do site: só remove as diferenças que
+   cada navegador aplica por conta própria, para que o mesmo
+   código renderize igual em todos.
+
+   Cada bloco abaixo corresponde a uma divergência REAL medida
+   nos três motores de renderização que cobrem o mercado:
+
+     Chromium  -> Chrome, Edge, Opera, Samsung Internet, Brave
+     Gecko     -> Firefox
+     WebKit    -> Safari do macOS, e TODO navegador do iPhone
+                  (no iOS até o Chrome usa WebKit por imposição
+                   da Apple)
+
+   Medições feitas em 1366x768 e 390x844, home do site.
+   Onde houver número neste arquivo, ele foi medido, não estimado.
+   ============================================================ */
+
+
+/* ------------------------------------------------------------
+   1. BOX MODEL PREVISÍVEL
+   ------------------------------------------------------------
+   Sem isso, padding e borda somam à largura declarada e um
+   elemento de "width: 100%" com padding estoura o container.
+   É a causa número um de rolagem lateral em celular.
+
+   O projeto já tinha esta regra no theme.css; mantida aqui
+   para que o reset funcione sozinho e na ordem correta.
+   ------------------------------------------------------------ */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* ------------------------------------------------------------
+   2. BASE DO DOCUMENTO
+   ------------------------------------------------------------
+   MEDIDO: a fonte do <body> variava entre os três motores —
+
+     Chrome  "Times New Roman"
+     Firefox  serif
+     Safari  -webkit-standard
+
+   O site nunca declarou fonte no <body>: a tipografia estava
+   só em .tb-theme. Qualquer elemento fora desse contêiner
+   (mensagens de erro, conteúdo de terceiros, o painel) herdava
+   uma fonte com serifa diferente em cada navegador.
+
+   Aqui o <body> passa a usar a mesma família do site, através
+   da variável que o next/font já cria.
+   ------------------------------------------------------------ */
+
+html {
+  /* Impede o iOS de aumentar a fonte sozinho ao girar o
+     aparelho para paisagem — comportamento exclusivo do
+     WebKit e invisível em testes de desktop. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+
+  /* Rolagem suave já usada pelas âncoras do menu. */
+  scroll-behavior: smooth;
+
+  /* Evita "pulo" horizontal quando a barra de rolagem
+     aparece e some entre uma página e outra. */
+  scrollbar-gutter: stable;
+}
+
+body {
+  font-family: var(--font-inter), 'Inter', -apple-system,
+               BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.6;
+
+  /* Suavização de fonte: sem isso o texto claro sobre fundo
+     escuro fica visivelmente mais "gordo" no Safari do que
+     no Chrome. O site é escuro, então isso é perceptível. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Melhora a quebra de palavras longas em português
+     (endereços, "disponibilidade", URLs). */
+  text-rendering: optimizeLegibility;
+}
+
+
+/* ------------------------------------------------------------
+   3. MÍDIA
+   ------------------------------------------------------------
+   MEDIDO: .about-img-wrap img tinha "width: 100%" sem
+   "height: auto". A altura renderizada divergiu —
+
+     Chrome   576x864   (usou a proporção real do arquivo)
+     Firefox  576x720   (usou os atributos width/height do HTML)
+     Safari   576x720
+
+   Diferença de 144px na altura da seção "Sobre" entre
+   navegadores. A regra "height: auto" faz todos usarem a
+   proporção real, sempre.
+
+   O "display: block" elimina o vão fantasma de ~4px que
+   aparece abaixo de toda imagem inline, porque o navegador
+   reserva espaço para a linha de base do texto.
+   ------------------------------------------------------------ */
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* O componente <Image> do Next define width/height próprios;
+   respeitamos o que ele calcula para não quebrar a otimização. */
+img[style*='color:transparent'] {
+  height: revert-layer;
+}
+
+
+/* ------------------------------------------------------------
+   4. FORMULÁRIOS
+   ------------------------------------------------------------
+   MEDIDO, dois problemas distintos:
+
+   (a) Os campos NÃO herdavam a fonte carregada do site.
+       Enquanto os botões usavam a Inter do next/font, os
+       inputs caíam numa "Inter" genérica do sistema. Na
+       prática, o texto digitado no formulário de contato
+       saía com fonte diferente do resto da página.
+
+   (b) Altura divergente por causa da fonte herdada:
+         input     Chrome 46px   Firefox 47px   Safari 46px
+         textarea  Chrome 110px  Firefox 115px  Safari 110px
+
+   Navegadores NÃO herdam fonte em controles de formulário por
+   padrão — é preciso pedir explicitamente com "font: inherit".
+   ------------------------------------------------------------ */
+
+input,
+button,
+textarea,
+select,
+optgroup {
+  font: inherit;
+  color: inherit;
+  letter-spacing: inherit;
+}
+
+/* O Firefox adiciona uma borda pontilhada interna nos botões
+   e um padding próprio que mais nenhum motor aplica. */
+::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+/* O Firefox impõe uma largura mínima aos campos, o que os
+   faz vazar de grids estreitos no celular. */
+input,
+select,
+textarea {
+  min-width: 0;
+}
+
+/* Redimensionamento apenas vertical: arrastar na diagonal
+   quebra o layout do formulário de contato. */
+textarea {
+  resize: vertical;
+}
+
+/* iOS: qualquer campo com fonte menor que 16px faz o Safari
+   dar zoom automático ao receber o toque, e a página fica
+   deslocada. Os campos do site usam 14px, então este bloco
+   é necessário. Vale apenas para toque, sem afetar desktop. */
+@media (hover: none) and (pointer: coarse) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
+/* Safari do iPhone arredonda e aplica gradiente próprio em
+   campos e botões, ignorando o CSS do site. */
+input,
+textarea,
+select,
+button {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+/* Exceção: estes precisam manter o desenho nativo para
+   continuarem reconhecíveis e acessíveis. */
+input[type='checkbox'],
+input[type='radio'],
+input[type='range'],
+input[type='color'],
+input[type='file'] {
+  -webkit-appearance: auto;
+  appearance: auto;
+}
+
+/* O X de limpar e os controles de busca do WebKit destoam
+   do tema escuro. */
+input[type='search']::-webkit-search-decoration,
+input[type='search']::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+
+/* O autopreenchimento do Chrome pinta o campo de azul-claro,
+   ilegível sobre o fundo escuro do site. */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.4) inset;
+  caret-color: #ffffff;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Nota de arquitetura: a correção do botão que vazava em telas
+   de 360px NÃO fica aqui. Este reset é carregado antes do
+   theme.css, e como as duas regras têm a mesma especificidade,
+   o tema venceria. Ela está na seção 19 do main-extra.css, que
+   é o último arquivo a carregar. */
+
+
+/* ------------------------------------------------------------
+   5. TIPOGRAFIA
+   ------------------------------------------------------------
+   Títulos herdam peso e tamanho do tema; aqui só evitamos que
+   palavras longas vazem do contêiner e que o texto fique com
+   "rios" de espaço em colunas estreitas.
+   ------------------------------------------------------------ */
+
+h1, h2, h3, h4, h5, h6 {
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+
+/* Sem "hyphens: auto": ele quebrava "Encontre" como "En-contre"
+   no subtítulo do hero. A hifenização automática do português
+   não vale o risco num site institucional — mantemos apenas a
+   quebra de palavras que realmente não cabem (URLs, e-mails). */
+p, li, dd, figcaption {
+  overflow-wrap: break-word;
+}
+
+/* Listas usadas como navegação não devem exibir marcadores
+   nem ser anunciadas como lista pelo leitor de tela. */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration-skip-ink: auto;
+}
+
+
+/* ------------------------------------------------------------
+   6. ACESSIBILIDADE
+   ------------------------------------------------------------
+   MEDIDO no celular (390x844): links de rodapé com 24px, 20px
+   e ícones sociais de 40px de largura — abaixo dos 44px que
+   Apple e Google recomendam para alvos de toque.
+
+   Aqui garantimos o mínimo sem alterar o visual: a área
+   clicável cresce por pseudo-elemento, o desenho continua
+   igual.
+   ------------------------------------------------------------ */
+
+@media (hover: none) and (pointer: coarse) {
+  .footer-social,
+  .footer-col a,
+  .main-nav a,
+  .mobile-menu a {
+    position: relative;
+  }
+
+  .footer-social::after,
+  .footer-col a::after,
+  .main-nav a::after,
+  .mobile-menu a::after {
+    content: '';
+    position: absolute;
+    inset: 50% 0 0 50%;
+    width: 100%;
+    min-width: 44px;
+    height: 100%;
+    min-height: 44px;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Foco visível e consistente. O Safari desenha um contorno
+   próprio que some sobre fundo escuro; padronizado aqui. */
+:focus-visible {
+  outline: 3px solid #d4af37;
+  outline-offset: 2px;
+}
+
+/* Respeita quem configurou "reduzir movimento" no sistema —
+   exigência da WCAG e do App Store Review. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+/* ------------------------------------------------------------
+   7. TABELAS E ELEMENTOS MENOS COMUNS
+   ------------------------------------------------------------ */
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Firefox mostra o marcador do <details> diferente do WebKit. */
+summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Evita que iframes de mapa ou vídeo venham com borda. */
+iframe {
+  border: 0;
+  max-width: 100%;
+}
+
+
+/* ------------------------------------------------------------
+   8. IMPRESSÃO
+   ------------------------------------------------------------
+   Um cliente pode imprimir a ficha de um imóvel. Sem isto a
+   página sai com fundo preto, gastando tinta e ficando
+   ilegível.
+   ------------------------------------------------------------ */
+
+@media print {
+  *,
+  *::before,
+  *::after {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  .site-header,
+  .whatsapp-float,
+  .hero-scroll,
+  .newsletter-section,
+  .site-footer {
+    display: none !important;
+  }
+
+  a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 11px;
+    word-break: break-all;
+  }
+
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+}

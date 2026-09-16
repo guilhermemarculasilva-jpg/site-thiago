@@ -1,0 +1,11 @@
+Isso vai acontecer de novo
+
+Sempre que você usar o painel (cadastrar imóvel, subir foto, editar texto)
+e depois quiser enviar alterações do computador, o push será rejeitado —
+pelo mesmo motivo.
+
+A regra é simples:
+
+    Antes de qualquer git push, rode git pull --no-rebase --no-edit.
+
+Se não houver nada novo, ele responde Already up to date. e segue em frente.

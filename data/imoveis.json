@@ -29,24 +29,6 @@
     ]
   },
   {
-    "slug": "villa-exclusiva",
-    "titulo": "Villa Exclusiva",
-    "descricao": "Propriedade exclusiva em terreno amplo, com quadra poliesportiva, pomar, casa de hóspedes independente e sistema de energia solar.",
-    "valor": 6800000,
-    "area": 750,
-    "quartos": 5,
-    "banheiros": 8,
-    "vagas": 6,
-    "endereco": "Estrada do Mimoso, km 4",
-    "cidade": "Barreiras",
-    "bairro": "Zona Rural",
-    "codigo": "TB-005",
-    "tipo": "casa",
-    "finalidade": "venda",
-    "destaque": true,
-    "imagem": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80"
-  },
-  {
     "slug": "studio-moderno",
     "titulo": "Studio Moderno",
     "descricao": "Studio compacto e inteligente, mobiliado, ideal para investimento ou primeira moradia. Localização central, próximo a comércio e serviços.",

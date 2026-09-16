@@ -1,0 +1,118 @@
+===========================================================
+  CORRECAO 7 - DESTRAVAR O SITE
+===========================================================
+
+ANTES DE MAIS NADA: voce nao errou nada.
+
+Voce aplicou o pacote 6 certinho e apagou os 9 imoveis
+ficticios certinho. Conferi no GitHub e esta tudo la,
+correto.
+
+O problema e outro, e e chato de perceber sozinho.
+
+
+-----------------------------------------------------------
+O QUE ACONTECEU
+-----------------------------------------------------------
+
+Quando voce descompactou o pacote 6, alem de copiar os
+3 arquivos corrigidos para os lugares certos (o que
+funcionou), a pasta "correcoes6" INTEIRA tambem acabou
+sendo enviada para o GitHub.
+
+Dentro dela ficou uma copia solta do arquivo Header.tsx.
+
+E ai esta o problema: a Vercel nao olha so os arquivos
+certos, ela tenta compilar TUDO que existe no repositorio.
+Quando ela chega nessa copia solta, o arquivo procura um
+companheiro dele (useSecaoAtiva) que nao existe naquela
+pasta. A compilacao para com erro.
+
+Quando a compilacao falha, a Vercel NAO publica nada e
+mantem o site na ultima versao que funcionou. Por isso
+suas mudancas estao no GitHub mas nao aparecem no ar.
+
+Em resumo:
+  seus arquivos        -> corretos
+  a copia de rascunho  -> quebra o build
+  resultado            -> site congelado numa versao velha
+
+
+-----------------------------------------------------------
+COMO EU COMPROVEI
+-----------------------------------------------------------
+
+Baixei o seu repositorio e mandei compilar:
+
+   Failed to compile.
+   Type error: Cannot find module './useSecaoAtiva'
+
+Apaguei so a pasta "correcoes6" e mandei compilar de novo:
+
+   Compiled successfully
+   Generating static pages (16/16)
+
+Mesma coisa duas vezes. E ela mesma.
+
+
+-----------------------------------------------------------
+O QUE FAZER (1 passo)
+-----------------------------------------------------------
+
+1) Clique com o botao DIREITO em  CORRIGIR-BUILD.bat
+2) Escolha "Executar como administrador"
+3) Espere terminar e aperte uma tecla para fechar
+4) Espere de 2 a 4 minutos
+5) Me avise
+
+Pronto. So isso.
+
+
+-----------------------------------------------------------
+O QUE O SCRIPT FAZ
+-----------------------------------------------------------
+
+- Baixa a versao mais recente do GitHub (git pull)
+- Apaga a pasta de rascunho "correcoes6"
+- Apaga tambem tres arquivos soltos que foram junto:
+  APLICAR-6.bat, "main" (vazio) e um .txt de anotacao
+- Instala um .gitignore melhorado, que impede que
+  qualquer pasta de correcao futura va para o GitHub
+  de novo
+- Envia tudo (git push)
+
+Ele NAO toca em nenhum arquivo do site. Nao mexe no
+main-extra.css, nao mexe na home, nao mexe no Header
+que esta no lugar certo, nao mexe nos seus imoveis.
+
+
+-----------------------------------------------------------
+O QUE VOCE VAI VER DEPOIS
+-----------------------------------------------------------
+
+Tudo que estava represado vai ao ar de uma vez:
+
+  - menu nao corta mais em telas de tablet/notebook
+  - titulo da home sem a quebra de linha estranha
+  - foto de capa inteira, sem cortar a cabeca
+  - selo EXPLORE reposicionado
+  - textos com contraste corrigido
+  - menu do celular fecha com a tecla ESC
+  - botoes maiores para o dedo (44px)
+  - a listagem mostra apenas 1 imovel, nao 10
+
+Ou seja: os pacotes 5 e 6 e a exclusao dos ficticios,
+todos de uma vez.
+
+
+-----------------------------------------------------------
+IMPORTANTE PARA O FUTURO
+-----------------------------------------------------------
+
+Quando eu te mandar um pacote de correcao, descompacte
+ele FORA da pasta do projeto - por exemplo na Area de
+Trabalho. Os scripts copiam os arquivos para dentro
+sozinhos.
+
+Com o .gitignore novo isso fica protegido automaticamente,
+mas e bom saber o porque.

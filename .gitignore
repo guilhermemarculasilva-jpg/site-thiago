@@ -9,3 +9,29 @@ next-env.d.ts
 # Variaveis de ambiente (nunca versionar)
 .env
 .env.local
+
+# ---------------------------------------------------------------
+# Pastas de correcao / rascunho enviadas pelo suporte.
+# NUNCA devem ir para o GitHub: elas contem copias soltas de
+# componentes que a Vercel tenta compilar e o build quebra.
+# ---------------------------------------------------------------
+correcoes*/
+correcao*/
+patch/
+patch-api/
+backup/
+backups/
+copia/
+copias/
+temp/
+tmp/
+
+# Scripts e pacotes de instalacao
+*.bat
+*.zip
+*.rar
+*.7z
+
+# Anotacoes soltas na raiz
+diagnostico.mjs
+main

@@ -47,24 +47,6 @@
     "imagem": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=1200&q=80"
   },
   {
-    "slug": "casa-moderna",
-    "titulo": "Casa Moderna",
-    "descricao": "Arquitetura contemporânea com linhas limpas, pé-direito duplo na sala de estar, cozinha integrada e jardim interno. Pronta para morar.",
-    "valor": 1900000,
-    "area": 280,
-    "quartos": 3,
-    "banheiros": 4,
-    "vagas": 3,
-    "endereco": "Rua das Acácias, 45",
-    "cidade": "Barreiras",
-    "bairro": "Morada Nobre",
-    "codigo": "TB-003",
-    "tipo": "casa",
-    "finalidade": "venda",
-    "destaque": true,
-    "imagem": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&q=80"
-  },
-  {
     "slug": "cobertura-premium",
     "titulo": "Cobertura Premium",
     "descricao": "Cobertura com amplo living, varanda gourmet com churrasqueira e vista livre. Condomínio com infraestrutura completa de lazer e segurança 24h.",

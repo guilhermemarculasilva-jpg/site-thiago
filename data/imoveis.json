@@ -29,24 +29,6 @@
     ]
   },
   {
-    "slug": "terreno-loteamento-nobre",
-    "titulo": "Terreno em Loteamento Nobre",
-    "descricao": "Lote plano e pronto para construir em loteamento fechado com infraestrutura completa: asfalto, drenagem, iluminação e portaria.",
-    "valor": 420000,
-    "area": 500,
-    "quartos": 0,
-    "banheiros": 0,
-    "vagas": 0,
-    "endereco": "Loteamento Villa Real, Quadra 8",
-    "cidade": "Barreiras",
-    "bairro": "Villa Real",
-    "codigo": "TB-007",
-    "tipo": "terreno",
-    "finalidade": "venda",
-    "destaque": false,
-    "imagem": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&q=80"
-  },
-  {
     "slug": "sala-comercial-centro",
     "titulo": "Sala Comercial no Centro",
     "descricao": "Sala comercial em edifício corporativo, com recepção, três ambientes, copa e duas vagas. Excelente para escritórios e clínicas.",

@@ -27,23 +27,5 @@
       "/uploads/imovel-1789515602340-rpydd.jpg",
       "/uploads/imovel-1789515604248-txl9n.jpg"
     ]
-  },
-  {
-    "slug": "residencial-jardins-lancamento",
-    "titulo": "Residencial Jardins — Lançamento",
-    "descricao": "Lançamento com apartamentos de 2 e 3 quartos, varanda gourmet, área de lazer completa com piscina, academia e salão de festas. Entrega prevista para 2027.",
-    "valor": 690000,
-    "area": 96,
-    "quartos": 3,
-    "banheiros": 2,
-    "vagas": 2,
-    "endereco": "Av. José Ramos de Queiroz, 2200",
-    "cidade": "Barreiras",
-    "bairro": "Jardim Ouro Branco",
-    "codigo": "TB-009",
-    "tipo": "apartamento",
-    "finalidade": "lancamento",
-    "destaque": false,
-    "imagem": "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1200&q=80"
   }
 ]

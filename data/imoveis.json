@@ -29,24 +29,6 @@
     ]
   },
   {
-    "slug": "studio-moderno",
-    "titulo": "Studio Moderno",
-    "descricao": "Studio compacto e inteligente, mobiliado, ideal para investimento ou primeira moradia. Localização central, próximo a comércio e serviços.",
-    "valor": 580000,
-    "area": 68,
-    "quartos": 1,
-    "banheiros": 2,
-    "vagas": 1,
-    "endereco": "Rua Prof. Aurélio Bandeira, 77",
-    "cidade": "Barreiras",
-    "bairro": "Centro",
-    "codigo": "TB-006",
-    "tipo": "apartamento",
-    "finalidade": "venda",
-    "destaque": true,
-    "imagem": "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=1200&q=80"
-  },
-  {
     "slug": "terreno-loteamento-nobre",
     "titulo": "Terreno em Loteamento Nobre",
     "descricao": "Lote plano e pronto para construir em loteamento fechado com infraestrutura completa: asfalto, drenagem, iluminação e portaria.",

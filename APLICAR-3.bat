@@ -1,0 +1,60 @@
+@echo off
+chcp 65001 >nul
+title Corrige cores da pagina do imovel e menu ativo
+
+echo ============================================================
+echo   CORRECAO: CORES DO SITE + MENU ATIVO
+echo ============================================================
+echo.
+
+if not exist ".git" (
+  echo [ERRO] Coloque este arquivo DENTRO da pasta do projeto:
+  echo        C:\curso git\site thiago
+  echo.
+  pause
+  exit /b 1
+)
+
+echo [1/3] Copiando os arquivos corrigidos...
+xcopy /e /i /y /q "correcoes3\app"        "app"        >nul
+xcopy /e /i /y /q "correcoes3\components" "components" >nul
+if errorlevel 1 (
+  echo [ERRO] A pasta "correcoes3" nao esta aqui do lado.
+  pause
+  exit /b 1
+)
+echo       pronto.
+echo.
+
+echo [2/3] Baixando o que o painel salvou no GitHub...
+echo.
+git pull --no-rebase --no-edit
+if errorlevel 1 (
+  echo.
+  echo [PAROU] Copie o texto acima e mande para o assistente.
+  pause
+  exit /b 1
+)
+echo.
+
+echo [3/3] Enviando...
+echo.
+git add -A
+git commit -m "corrige cores do site e adiciona menu ativo"
+git push
+if errorlevel 1 (
+  echo.
+  echo [PAROU] Copie o texto acima e mande para o assistente.
+  pause
+  exit /b 1
+)
+
+echo.
+echo ============================================================
+echo   ENVIADO
+echo ============================================================
+echo.
+echo A Vercel publica em 1 a 2 minutos.
+echo Depois abra o site e aperte Ctrl+Shift+R.
+echo.
+pause

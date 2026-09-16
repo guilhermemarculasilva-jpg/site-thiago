@@ -29,24 +29,6 @@
     ]
   },
   {
-    "slug": "sala-comercial-centro",
-    "titulo": "Sala Comercial no Centro",
-    "descricao": "Sala comercial em edifício corporativo, com recepção, três ambientes, copa e duas vagas. Excelente para escritórios e clínicas.",
-    "valor": 4500,
-    "area": 90,
-    "quartos": 0,
-    "banheiros": 2,
-    "vagas": 2,
-    "endereco": "Av. Clériston Andrade, 1500",
-    "cidade": "Barreiras",
-    "bairro": "Centro",
-    "codigo": "TB-008",
-    "tipo": "comercial",
-    "finalidade": "aluguel",
-    "destaque": false,
-    "imagem": "https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=1200&q=80"
-  },
-  {
     "slug": "residencial-jardins-lancamento",
     "titulo": "Residencial Jardins — Lançamento",
     "descricao": "Lançamento com apartamentos de 2 e 3 quartos, varanda gourmet, área de lazer completa com piscina, academia e salão de festas. Entrega prevista para 2027.",

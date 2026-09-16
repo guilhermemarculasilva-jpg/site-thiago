@@ -105,7 +105,7 @@ export default function Footer() {
               className="btn btn-whatsapp"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ marginTop: 24, borderRadius: 8, padding: '12px 24px', fontSize: 10 }}
+              style={{ marginTop: 24, borderRadius: 8, padding: '12px 24px' }}
             >
               Falar pelo WhatsApp
             </a>

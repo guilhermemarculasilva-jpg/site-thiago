@@ -1310,42 +1310,66 @@ html:has(.tb-theme) body {
   }
 }
 
-/* --- 17.3 HERO PASSA DA DOBRA NO NOTEBOOK -------------------
-   Medido em 1366x768: hero com 918px (120% da tela) e a barra de
-   busca começando em y=895px — fora da primeira tela.
+/* --- 17.3 HERO: CONTEÚDO PERTO DO TOPO E FOTO MAIOR ---------
+   Histórico desta seção:
+     pacote 6  hero passava da dobra -> limitei a ALTURA da foto com
+               max-height:46vh + object-fit:contain. Errado: a largura
+               seguia 420px, então sobrava vazio dos lados (95px) e o
+               selo CRECI invadia a foto.
+     pacote 8  troquei para width:300px (proporção correta), mas a
+               foto ficou pequena.
+     pacote 9  (esta) o vazio real vinha de DOIS paddings somados:
+               .hero-section 116px + .hero-content-wrap 120px = 236px
+               de topo, com o conteúdo ainda centralizado por
+               min-height:100vh. Medido: 143px de vazio em notebook e
+               421px em 2K.
+
+   Agora: um padding só, e a foto escala pela ALTURA da janela.
+   Medições depois da correção (vazio abaixo do header / foto):
+     1280x720   84px / 374x562      1600x900   112px / 468x702
+     1366x768   99px / 399x599      1920x1080  136px / 500x750
+     1440x780  104px / 406x608      2560x1440  136px / 500x750
+     1568x753   93px / 392x587
+   Em todas: sem deformação, selo dentro da foto e busca na dobra.
    ------------------------------------------------------------ */
 
 .tb-theme .hero-title {
   text-wrap: balance;
 }
 
-/* Notebook de tela baixa: compacta o hero para a busca aparecer */
-@media (min-width: 1024px) and (max-height: 820px) {
-  .tb-theme .hero-section {
-    min-height: auto;
-    padding-top: calc(var(--header-h, 88px) + 28px);
-    padding-bottom: 40px;
-  }
+/* O hero deixa de esticar até 100vh e de centralizar o conteúdo:
+   ele passa a ter a altura do que contém, logo abaixo do header. */
+.tb-theme .hero-section {
+  min-height: auto;
+  padding-top: var(--header-h, 88px);
+  padding-bottom: 0;
+}
 
+/* Este era o padding escondido que empurrava tudo para baixo. */
+.tb-theme .hero-content-wrap {
+  padding-top: 36px;
+  padding-bottom: 52px;
+}
+
+/* A foto acompanha a altura útil da tela em vez de ter um tamanho
+   fixo: cresce no monitor grande e encolhe no notebook baixo, sempre
+   na proporção natural (408x612). */
+.tb-theme .hero-profile img {
+  width: clamp(300px, 52vh, 500px);
+}
+
+/* O selo CRECI ficava com bottom:-24px, vazando para fora da foto e
+   sendo cortado pela barra de busca. Ancorado dentro da imagem. */
+.tb-theme .hero-badge {
+  bottom: 16px;
+  left: -20px;
+}
+
+/* Notebook de tela baixa: só os ajustes de texto continuam. */
+@media (min-width: 1024px) and (max-height: 820px) {
   .tb-theme .hero-title { font-size: clamp(2.4rem, 4.2vw, 3.6rem); }
   .tb-theme .hero-subtitle { max-width: 46ch; }
   .tb-theme .hero-stats { margin-top: 24px; }
-
-  /* A foto do corretor é o item mais alto do hero (630px). Em telas
-     baixas ela é a razão de a busca cair abaixo da dobra. */
-  .tb-theme .hero-profile,
-  .tb-theme .hero-profile-frame {
-    max-height: 46vh;
-  }
-
-  .tb-theme .hero-profile img,
-  .tb-theme .hero-profile-frame img {
-    max-height: 46vh;
-    object-fit: contain;
-    object-position: bottom;
-  }
-
-  .tb-theme .hero-inner { align-items: center; }
   .tb-theme .hero-buttons { margin-top: 20px; }
 }
 
@@ -1437,4 +1461,58 @@ html:has(.tb-theme) body {
 .tb-theme .simulator-range::-moz-range-thumb {
   width: 26px;
   height: 26px;
+}
+
+/* ============================================================
+   18. LEGIBILIDADE DA TIPOGRAFIA PEQUENA
+   ============================================================
+   Auditoria em 13 telas x 5 páginas encontrou textos de 9px e 10px
+   com letter-spacing de até 3px — combinação que fica desconfortável
+   de ler, especialmente em celular e em monitor 2K.
+
+   São rótulos, selos e textos de botão. Nada aqui muda o tamanho de
+   títulos ou de parágrafos de leitura.
+
+   Piso adotado: 11px para selos decorativos, 12px para texto de
+   botão e rótulo de formulário. O letter-spacing foi reduzido junto,
+   porque espaçamento largo em fonte pequena piora a leitura.
+
+   Verificado depois da mudança: nenhuma rolagem lateral e nenhum
+   botão com texto quebrado, em 360px, 390px, 1366px e 1920px.
+   ------------------------------------------------------------ */
+
+.tb-theme .property-btn,
+.tb-theme .btn,
+.tb-theme .btn-whatsapp,
+.tb-theme .btn-gold,
+.tb-theme .btn-outline,
+.tb-theme .footer-col .btn {
+  font-size: 12px;
+  letter-spacing: 1.4px;
+}
+
+.tb-theme label,
+.tb-theme .simulator-label,
+.tb-theme .rate-note,
+.tb-theme .simulator-disclaimer,
+.tb-theme .simulator-field-header span {
+  font-size: 12px;
+  letter-spacing: 1.2px;
+}
+
+.tb-theme .about-stat-label,
+.tb-theme .contact-label,
+.tb-theme .hero-stat-label,
+.tb-theme .testimonial-city {
+  font-size: 11.5px;
+  letter-spacing: 1.4px;
+}
+
+.tb-theme .property-badge,
+.tb-theme .logo-creci,
+.tb-theme .hero-badge-text,
+.tb-theme .simulator-contact-label,
+.tb-theme .hero-scroll span {
+  font-size: 11px;
+  letter-spacing: 1.2px;
 }

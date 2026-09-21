@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "email": "thiagobostock.40@hotmail.com",
+    "nome": "Thiago",
+    "senha": "pbkdf2$150000$1f2e2f0c3b898854b3131e16851407ad$4f76a562b7a75183073987212f2d100502bd687082c76a978affdfe291b83b9d",
+    "criadoEm": "2026-09-21T16:20:51.880Z"
+  }
+]

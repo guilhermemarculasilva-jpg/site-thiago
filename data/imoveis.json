@@ -1,5 +1,26 @@
 [
   {
+    "slug": "espaco-conforto-e-praticidade-para-sua-familia-viver-bem",
+    "titulo": "Espaço, conforto e praticidade para sua família viver bem.",
+    "descricao": "Uma excelente oportunidade para quem busca um imóvel amplo, funcional e bem localizado, reunindo tudo o que é essencial para o dia a dia com conforto e qualidade.\n\n✨ Destaques do imóvel: \n🛋️ Sala ampla e aconchegante;\n 🍽️ Cozinha individual, prática e organizada; \n🥂 Área de jantar integrada para momentos especiais; \n🛏️ 3 quartos espaçosos; \n👑 1 suíte para mais privacidade e conforto; \n🌳 Quintal amplo com diversas possibilidades de uso; \n🚗 Garagem com ótimo espaço\n\nUma excelente oportunidade para quem deseja morar bem em um imóvel moderno, funcional e localizado em uma região tranquila e valorizada de Bom Jesus da Lapa.",
+    "valor": 0,
+    "area": 0,
+    "quartos": 3,
+    "banheiros": 2,
+    "vagas": 0,
+    "endereco": "",
+    "cidade": "Bom Jesus da Lapa/BA",
+    "bairro": "São João",
+    "codigo": "TB-002",
+    "tipo": "casa",
+    "finalidade": "venda",
+    "destaque": true,
+    "imagem": "/uploads/imovel-1790010260692-vtzkx.png",
+    "galeria": [
+      "/uploads/imovel-1790010260692-vtzkx.png"
+    ]
+  },
+  {
     "slug": "teste",
     "titulo": "Espaço, conforto e praticidade para sua família viver bem.",
     "descricao": "Uma excelente oportunidade para quem busca um imóvel amplo, funcional e bem localizado, reunindo tudo o que é essencial para o dia a dia com conforto e qualidade.\n\n✨ Destaques do imóvel: \n🛋️ Sala ampla e aconchegante;\n 🍽️ Cozinha individual, prática e organizada; \n🥂 Área de jantar integrada para momentos especiais; \n🛏️ 3 quartos espaçosos; \n👑 1 suíte para mais privacidade e conforto; \n🌳 Quintal amplo com diversas possibilidades de uso; \n🚗 Garagem com ótimo espaço.",
